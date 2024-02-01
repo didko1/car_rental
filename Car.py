@@ -83,7 +83,7 @@ class RentalPerson:
 
 class Document:
     def __init__(self, vehicle, renter):
-        self.name = vehicle.brand + "-" + vehicle.model + "-" + renter.firstName + "-" + renter.family + ".txt"
+        self.name = "Agreement" + vehicle.brand + "-" + vehicle.model + "-" + renter.firstName + "-" + renter.family + ".txt"
         self.renter_name = renter.firstName
         self.renter_family = renter.family
         self.renter_id = renter.identification_number
@@ -101,10 +101,11 @@ class Document:
         f.write("Agreement between Rent a car company and " + self.renter_name + " " + self.renter_family + "\n")
         f.write("entered on date " + str(date.today()) +"\n")
         f.write("1. Rental company agrees to rent to the Renter the following vehicle:\n")
-        f.write("   Brand/model" + self.vehicle_brand + " " + self.vehicle_model + " \n License plate: " + self.vehicle_plate + "\n Year of manufacture: " + self.vehicle_year + "\n Color: " + self.vehicle_color+"\n")
+        f.write("   Brand/model" + self.vehicle_brand + " " + self.vehicle_model + " \n   License plate: " + self.vehicle_plate + "\n Year of manufacture: " + self.vehicle_year + "\n Color: " + self.vehicle_color+"\n")
         f.write("2. Rental Fees and Payment:")
         f.write("The Renter agrees to pay the Rental Company the total sum of " + str(self.vehicle_fee) + " leva for the entire rental period.\n")
         f.close()
+        print("Agreement generated!")
         
    
     
@@ -188,12 +189,18 @@ def bookVehicle(listname):
     else:
         if action > 0 and action < len(listname):
             with open(listname,"r") as vehicle_list:
-                reader = csv.reader(vehicle_list)
+                #reader = csv.reader(vehicle_list)
                 rows = list(vehicle_list) 
         vehicle_info = rows[action].split(",")
-        car = Car(vehicle_info[0], vehicle_info[1], vehicle_info[2], vehicle_info[3], vehicle_info[4], vehicle_info[5], vehicle_info[6])
         renter = collectRenterInfo()
-        doc = Document(car, renter)
+        if listname == "CarsList.csv":
+            car = Car(vehicle_info[0], vehicle_info[1], vehicle_info[2], vehicle_info[3], vehicle_info[4], vehicle_info[5], vehicle_info[6])
+            doc = Document(car, renter)
+            car.reserve(date.today(), renter.rent_period)
+        elif listname == "MotorbikesList.csv":
+            motorbike = MotorBike(vehicle_info[0], vehicle_info[1], vehicle_info[2], vehicle_info[3], vehicle_info[4], vehicle_info[5], vehicle_info[6])
+            doc = Document(motorbike, renter)
+            motorbike.reserve(date.today(), renter.rent_period)
         doc.generateAgreement()
             
             
@@ -218,7 +225,9 @@ def showHomeMenu():
         bookVehicle(cars)
     elif action == 2:
         print("Loading motorbikes list")
-        showVehicleList("MotorbikesList.csv")
+        motoList = "MotorbikesList.csv"
+        showVehicleList(motoList)
+        bookVehicle(motoList)
     elif action == 3:
         print("Logging as admin")
         adminLogin()
