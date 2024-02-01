@@ -1,0 +1,48 @@
+Car rental program for managing available vehicles in the car company.
+Program has two user modes:
+1. user mode:
+   This user can list all vehicles, choose vehicle and agreement between car company and user is auto generated.
+2. administrative mode:
+   In this mode admin user can add new vehicles to databases.
+   For entering this mode username and password are required:
+   username:admin
+   password:admin1234
+
+Features:
+Manging vehicle databases
+Reserve vehicle 
+Auto generated agreement between the car company and renter.
+
+For implementation of this program following classes were created.
+
+Vehicle class and two Child classes for every type of veicle that is available in the company.
+        Car
+       /
+Vehicle
+       \
+        Motorbike
+variables:
+	String brand, String model, String reg_plate, String year, String color,String mileage String type
+methods:
+	setMileage - to update mileage of the vehicle
+	vehicleHistory - create file named vehicle_{$license_plate}_info.csv and save vehicle info into it.
+	addToDb - Add new records to vehicle files(CarsList.csv/MotorbikesList.csv)
+Document
+variables:
+	vehicle, renter attributes
+methods:
+	generateAgreement - Generate agreement using attributes of provides instances of Vehicle and RenterPerson classes
+
+Main
+showHomeMenu - Used to show home menu and waits user to take action
+adminAction - Used to show menu administartive mode 
+adminLogin - Used to log in as admin
+showVehicleList - Used to print records in CarsList.csv/MotorbikesList.csv
+collectRenterInfo - Used to asks user to enter needed information
+bookVehicle  - Used to reserve vehicle and to generate agreement
+
+
+Feature work and TODO's
+-Change admin credentials check to compare hashes(not to save password in plain text in .admin_credentials)
+-Add check if vehicle is available for given period of time
+-Add admin options to delete/modify records in databases
