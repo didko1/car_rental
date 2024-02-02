@@ -41,6 +41,12 @@ showVehicleList - Used to print records in CarsList.csv/MotorbikesList.csv
 collectRenterInfo - Used to asks user to enter needed information
 bookVehicle  - Used to reserve vehicle and to generate agreement
 
+imported modules:
+sys - to exit the program
+csv - to create and modify csv files
+datetime - get cuurrent date
+base64 - used for encode/decode passwords
+maskpass - replace entered password characters with *
 
 Feature work and TODO's
 -Change admin credentials check to compare hashes(not to save password in plain text in .admin_credentials)
