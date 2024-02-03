@@ -169,13 +169,12 @@ def adminLogin():
         lines = f.read().split('\n')
         cr_user = base64.b64encode(lines[0].encode("utf-8"))
         cr_pass = base64.b64encode(lines[1].encode("utf-8"))
-    print(base64.b64decode(cr_user).decode("utf-8"))
-    print(base64.b64decode(cr_pass).decode("utf-8"))
     if(username == base64.b64decode(cr_user).decode("utf-8") and base64.b64decode(encpass).decode("utf-8") == base64.b64decode(cr_pass).decode("utf-8")):
         print("Hello admin")
         adminAction()
     else:
         print("Invalid username or password!")
+        showHomeMenu()
 
 def showVehicleList(listname):
     with open(listname, "r") as vehicle_list:
